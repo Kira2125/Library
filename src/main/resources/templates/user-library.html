@@ -14,15 +14,29 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>User id</th>
+                <th>Poster</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="book : ${books}">
                 <td th:text="${book.id}"></td>
                 <td th:text="${book.name}"></td>
+                <td th:text="${book.getOwner().getId()}"></td>
+                <td th:switch="${book.getImgName()}">
+                    <h3 th:case="null">Poster not added</h3>
+                    <div th:case="*">
+                        <img th:src="@{/img/{filename}(filename = ${book.imgName})}">
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>
+    </div>
+    <div th:switch="${user.getId()}">
+        <div th:case="${id}">
+            <p><a th:href="@{{id}/create_book(id=${id})}">Add book</a></p>
+        </div>
     </div>
 </div>
 </body>

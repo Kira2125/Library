@@ -19,4 +19,7 @@ public class Book {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User owner;
+
+    @Column(name = "img_name")
+    String imgName;
 }

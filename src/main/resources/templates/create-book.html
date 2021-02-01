@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create book</title>
+</head>
+<body>
+<form action="#" th:action="@{/library/create_book}" th:object="${book}" method="post" enctype="multipart/form-data">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="name">
+    <input type="file" name="imgFile">
+    <input type="submit" value="Add book">
+</form>
+</body>
+</html>
