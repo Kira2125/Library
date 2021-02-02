@@ -22,4 +22,7 @@ public class Book {
 
     @Column(name = "img_name")
     String imgName;
+
+    @Column(name = "book_text")
+    String bookText;
 }

@@ -16,6 +16,7 @@
                 <th>Name</th>
                 <th>User id</th>
                 <th>Poster</th>
+                <th>Book file</th>
             </tr>
             </thead>
             <tbody>
@@ -27,6 +28,13 @@
                     <h3 th:case="null">Poster not added</h3>
                     <div th:case="*">
                         <img th:src="@{/img/{filename}(filename = ${book.imgName})}">
+                    </div>
+                </td>
+                <td th:switch="${book.getBookText()}">
+                    <h3 th:case="null">File not found</h3>
+                    <div th:case="*">
+<!--                        <a th:href="@{|/text/give/${book.bookText}|}"><span>Download</span></a>-->
+                        <a th:href="@{/library/text/{some}(some=${book.bookText})}"><span>Download</span></a>
                     </div>
                 </td>
             </tr>

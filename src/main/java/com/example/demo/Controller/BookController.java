@@ -5,16 +5,28 @@ import com.example.demo.Model.Book;
 import com.example.demo.Model.User;
 import com.example.demo.Service.BookService;
 import com.example.demo.Service.UserService;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +37,9 @@ public class BookController {
     @Value("${upload.path}")
     private String uploadPath;
 
+    @Value("${text.path}")
+    private String textPath;
+
     private final UserService userService;
 
     private final BookService bookService;
@@ -32,6 +47,35 @@ public class BookController {
     public BookController(UserService userService, BookService bookService) {
         this.userService = userService;
         this.bookService = bookService;
+    }
+
+    @GetMapping("/text/{some}")
+    public void serveFile(@PathVariable String some, HttpServletRequest request,
+                                          HttpServletResponse response) {
+
+
+
+
+        String dataDirectory = request.getServletContext().getRealPath("/WEB-INF/downloads/text/");
+        Path file = Paths.get(dataDirectory, some);
+        if (Files.exists(file))
+        {
+            response.setContentType("application/pdf");
+            response.addHeader("Content-Disposition", "attachment; filename="+some);
+            try
+            {
+                Files.copy(file, response.getOutputStream());
+                response.getOutputStream().flush();
+            }
+            catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+
+
+//        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+//                "attachment; filename=\"" + some + "\"").body(file);
     }
 
 
@@ -67,7 +111,8 @@ public class BookController {
 
     @PostMapping("/create_book")
     public String saveBook(@AuthenticationPrincipal UserDetails userDetails, Book book,
-                           @RequestParam("imgFile") MultipartFile imgFile) {
+                           @RequestParam("imgFile") MultipartFile imgFile,
+                           @RequestParam("book_text") MultipartFile bookFile) {
 
         if (imgFile != null && !imgFile.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
@@ -88,6 +133,27 @@ public class BookController {
             book.setImgName(resultFilename);
         }
 
+        if (bookFile != null && !bookFile.getOriginalFilename().isEmpty()) {
+            File upload = new File(textPath);
+
+            if (!upload.exists()) {
+                upload.mkdir();
+            }
+
+            String uuidFile = UUID.randomUUID().toString();
+            String resultName = uuidFile + "." + bookFile.getOriginalFilename();
+
+            try {
+                bookFile.transferTo(new File(textPath + "/" + resultName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            book.setBookText(resultName);
+        }
+
+
+
 
         String username = userDetails.getUsername();
         User user = userService.findByEmail(username);
@@ -95,4 +161,6 @@ public class BookController {
         bookService.saveBook(book);
         return "redirect:/library";
     }
+
+
 }
