@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:replace="/includes/common :: common">
     <meta charset="UTF-8">
     <title>Create book</title>
 </head>
 <body>
-<form action="#" th:action="@{/library/create_book}" th:object="${book}" method="post" enctype="multipart/form-data">
-    <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="name">
-    <label for="imgFile">Poster (img, jpeg, jpg)</label>
-    <input type="file" name="imgFile" id="imgFile">
-    <label for="book_text">File of book (pdf, txt)</label>
-    <input type="file" name="book_text" id="book_text">
-    <input type="submit" value="Add book">
-</form>
+<div th:replace="/includes/header :: header"></div>
+<div class="container">
+    <div class="row">
+        <form class="form-signin" action="#" th:action="@{/library/create_book}" th:object="${book}" method="post" enctype="multipart/form-data">
+            <label class="form-label" for="name">Book name</label>
+            <input class="form-control" type="text" th:field="*{name}" id="name" placeholder="name">
+            <label class="form-label" for="imgFile">Poster (img, jpeg, jpg)</label>
+            <input class="form-control" type="file" name="imgFile" id="imgFile">
+            <label class="form-label" for="book_text">File of book (pdf, txt)</label>
+            <input class="form-control" type="file" name="book_text" id="book_text">
+            <input class="btn btn-primary mb-2" type="submit" value="Add book">
+        </form>
+    </div>
+</div>
+<div th:replace="/includes/scripts :: scripts"></div>
 </body>
 </html>

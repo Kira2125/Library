@@ -45,7 +45,7 @@
         </div>
         <div th:switch="${user.getId()}">
             <div th:case="${id}">
-                <p><a th:href="@{{id}/create_book(id=${id})}">Add book</a></p>
+                <p><a th:href="@{library/{id}/create_book(id=${id})}">Add book</a></p>
             </div>
         </div>
     </div>

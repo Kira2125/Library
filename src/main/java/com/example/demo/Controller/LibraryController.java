@@ -122,7 +122,9 @@ public class LibraryController {
                            @RequestParam("imgFile") MultipartFile imgFile,
                            @RequestParam("book_text") MultipartFile bookFile) {
 
-
+        if(book.getBookText() == null) {
+            return "redirect:/library";
+        }
 
         if (imgFile != null && !imgFile.getOriginalFilename().isEmpty()) {
             String imgName = imgFile.getOriginalFilename();
