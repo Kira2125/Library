@@ -41,5 +41,9 @@ public class BookService {
        bookRepository.save(book);
     }
 
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
+    }
+
 
 }

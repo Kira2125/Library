@@ -2,10 +2,9 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="/includes/common :: common">
     <meta charset="UTF-8">
-    <title>Books</title>
+    <title>Users</title>
 </head>
 <body>
-
 <div th:replace="/includes/header :: header"></div>
 
 <div th:switch="${books}" class="container">
@@ -37,7 +36,6 @@
                     <td th:switch="${book.getBookText()}">
                         <h5 th:case="null">File not found</h5>
                         <div th:case="*">
-    <!--                        <a th:href="@{|/text/give/${book.bookText}|}"><span>Download</span></a>-->
                             <a th:href="@{/library/text/{some}(some=${book.bookText})}"><span>Download</span></a>
                         </div>
                     </td>
@@ -54,6 +52,5 @@
 </div>
 
 <div th:replace="/includes/scripts :: scripts"></div>
-
 </body>
 </html>

@@ -8,9 +8,9 @@
 <form action="#" th:action="@{/library/create_book}" th:object="${book}" method="post" enctype="multipart/form-data">
     <label for="name">Name</label>
     <input type="text" th:field="*{name}" id="name" placeholder="name">
-    <label for="imgFile">Poster</label>
+    <label for="imgFile">Poster (img, jpeg, jpg)</label>
     <input type="file" name="imgFile" id="imgFile">
-    <label for="book_text">File of book</label>
+    <label for="book_text">File of book (pdf, txt)</label>
     <input type="file" name="book_text" id="book_text">
     <input type="submit" value="Add book">
 </form>

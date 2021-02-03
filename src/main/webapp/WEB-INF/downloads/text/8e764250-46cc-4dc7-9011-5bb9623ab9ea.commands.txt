@@ -1,0 +1,68 @@
+alt + insert - конструкторы, геттеры, сеттеры
+
+ctrl + p - аргументы, принимаемые методом
+
+alt + shift + click - редактирование нескольких строк одновременно
+
+alt + enter - зависимости, исправления
+
+ctrl + alt + i - автовыравнивание кода
+
+ctrl + shift + f9 - перезагрузка проекта
+
+ctrl + alt + o - убрать не используемые импорты
+
+ctrl + alt + m - выделенное преобразуется в отдеьный метод
+
+
+
+$ netstat -ano | findstr :8080 - посмотреть номер процесса на порту 8080
+
+$ taskkill /PID 6816 /F - рипнуть процесс с номером 6816
+
+
+
+gitk --all&
+git checkout ssh1 ветки
+
+
+git checkout -b name(name - name of the branch)
+
+
+git init
+git add -A
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Kira2125/SpringMVC.git
+git push -u origin main
+
+
+
+error git  src refspec master does not match any ---> git push origin HEAD:main
+
+
+
+
+ssh-keygen -t rsa
+
+git config --global mike.email "mike@gmail.com"
+git config --global mike.name  "mike"
+
+
+
+create table messages(id serial not null primary key, text varchar)
+
+create table usr(id serial not null primary key, name varchar, userpic varchar, email varchar, gender varchar, locale varchar, lastVisit date)
+
+create table users(id serial primary key, email varchar(255) not null unique,
+ firstName varchar(255) not null , lastName varchar(255) not null ,
+  password varchar(255) not null, role varchar(255) default 'USER' not null,
+  status varchar(255) default 'ACTIVE' not null )
+
+alter table if exists books
+    add constraint books_user_fk
+        foreign key (user_id) references users;
+
+
+
+https://www.pluralsight.com/guides/how-to-execute-javascript-after-reactjs-render-method-has-completed - react api

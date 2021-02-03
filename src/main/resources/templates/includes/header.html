@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<nav th:fragment="header" class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+
+
+                <ul class="nav">
+                    <li >
+                        <p class="navbar-brand">Bookin</p>
+                    </li>
+                    <li >
+                        <a class="nav-link" href="/library">Users</a>
+                    </li>
+                    <li >
+                        <a class="nav-link" href="/books">Books</a>
+                    </li>
+                    <div class="float-right">
+                        <form class="form-signin" action="/auth/logout" method="POST">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
+                        </form>
+                    </div>
+                </ul>
+
+        </div>
+    </div>
+</nav>
+</html>
